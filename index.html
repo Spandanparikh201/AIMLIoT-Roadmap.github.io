@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI/ML & IoT Career Mindmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #040812;
+    --bg2: #080f20;
+    --accent1: #00f5d4;
+    --accent2: #f72585;
+    --accent3: #7b2fff;
+    --accent4: #ffd60a;
+    --accent5: #06d6a0;
+    --accent6: #ef476f;
+    --text: #e8eaf6;
+    --text2: #8892b0;
+    --card: rgba(255,255,255,0.04);
+    --border: rgba(255,255,255,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Space Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Animated grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(0,245,212,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,212,0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Glow orbs */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatOrb 20s ease-in-out infinite;
+  }
+  .orb1 { width: 600px; height: 600px; background: var(--accent3); top: -200px; left: -100px; animation-delay: 0s; }
+  .orb2 { width: 400px; height: 400px; background: var(--accent2); bottom: -100px; right: -100px; animation-delay: -10s; }
+  .orb3 { width: 300px; height: 300px; background: var(--accent1); top: 50%; left: 50%; animation-delay: -5s; }
+
+  @keyframes floatOrb {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -30px) scale(1.05); }
+    66% { transform: translate(-20px, 20px) scale(0.95); }
+  }
+
+  /* Layout */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 60px;
+    animation: fadeDown 0.8s ease both;
+  }
+
+  .header-tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent1);
+    border: 1px solid var(--accent1);
+    padding: 6px 16px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+
+  .header h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1.05;
+    background: linear-gradient(135deg, #fff 0%, var(--accent1) 50%, var(--accent3) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+  }
+
+  .header p {
+    color: var(--text2);
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Tab navigation */
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+
+  .tab {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 10px 24px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .tab:hover, .tab.active {
+    background: rgba(0,245,212,0.1);
+    border-color: var(--accent1);
+    color: var(--accent1);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Section */
+  .section { display: none; }
+  .section.active { display: block; animation: fadeIn 0.5s ease; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Career Grid */
+  .career-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 24px;
+  }
+
+  /* Career Card */
+  .career-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    animation: cardIn 0.6s ease both;
+  }
+
+  .career-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-header {
+    padding: 20px 24px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .card-domain {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  .card-body { padding: 20px 24px; }
+
+  .card-desc {
+    color: var(--text2);
+    font-size: 12px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  /* Roadmap steps */
+  .roadmap-label {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text2);
+    margin-bottom: 12px;
+  }
+
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .step-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .step-content {
+    flex: 1;
+  }
+
+  .step-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 2px;
+    letter-spacing: 0.5px;
+  }
+
+  .step-detail {
+    font-size: 10px;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+
+  /* Skills tags */
+  .skills-section { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .skills-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--text2); margin-bottom: 8px; }
+  .skills-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag {
+    font-size: 9px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 4px 8px;
+    border-radius: 2px;
+    border: 1px solid;
+  }
+
+  /* Salary badge */
+  .salary-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-top: 14px;
+    border: 1px solid;
+  }
+
+  /* Section heading */
+  .section-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Roadmap Timeline (Achievement Path) */
+  .timeline {
+    position: relative;
+    padding-left: 40px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent1), var(--accent3), var(--accent2));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 32px;
+    animation: cardIn 0.6s ease both;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -33px;
+    top: 8px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8px;
+    font-weight: 700;
+  }
+
+  .timeline-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 20px 24px;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+
+  .timeline-card:hover {
+    transform: translateX(4px);
+    border-color: rgba(0,245,212,0.3);
+  }
+
+  .timeline-phase {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .timeline-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .timeline-desc {
+    color: var(--text2);
+    font-size: 12px;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  .timeline-resources {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .resource-tag {
+    font-size: 9px;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--text2);
+    text-transform: uppercase;
+  }
+
+  /* Startup section */
+  .startup-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+  }
+
+  .startup-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 24px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: cardIn 0.6s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .startup-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+
+  .startup-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+
+  .startup-category {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .startup-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+
+  .startup-desc {
+    color: var(--text2);
+    font-size: 12px;
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .startup-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .metric {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    padding: 10px;
+  }
+
+  .metric-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--text2); margin-bottom: 4px; }
+  .metric-value { font-size: 12px; font-weight: 700; }
+
+  /* Color themes per card */
+  .c1 { --cc: var(--accent1); }
+  .c2 { --cc: var(--accent2); }
+  .c3 { --cc: var(--accent3); }
+  .c4 { --cc: var(--accent4); }
+  .c5 { --cc: var(--accent5); }
+  .c6 { --cc: #ff8c42; }
+  .c7 { --cc: #4cc9f0; }
+  .c8 { --cc: #f77f00; }
+
+  .career-card { border-top: 2px solid var(--cc); }
+  .career-card:hover { border-color: var(--cc); box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px -10px var(--cc); }
+  .card-icon { background: color-mix(in srgb, var(--cc) 15%, transparent); }
+  .card-domain { color: var(--cc); }
+  .step-num { background: color-mix(in srgb, var(--cc) 20%, transparent); color: var(--cc); }
+  .skill-tag { border-color: color-mix(in srgb, var(--cc) 40%, transparent); color: var(--cc); background: color-mix(in srgb, var(--cc) 8%, transparent); }
+  .salary-badge { border-color: color-mix(in srgb, var(--cc) 40%, transparent); color: var(--cc); background: color-mix(in srgb, var(--cc) 8%, transparent); }
+  .startup-card::before { background: var(--cc); }
+  .startup-category { color: var(--cc); }
+  .metric-value { color: var(--cc); }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .career-grid, .startup-grid { grid-template-columns: 1fr; }
+    .header h1 { font-size: 36px; }
+  }
+</style>
+</head>
+<body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-tag">Interactive Career Map</div>
+    <h1>AI / ML & IoT<br>Career Universe</h1>
+    <p>Explore every path · Master the skills · Build the future</p>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active" onclick="showSection('ai-ml')">🤖 AI / ML Careers</button>
+    <button class="tab" onclick="showSection('iot')">📡 IoT Careers</button>
+    <button class="tab" onclick="showSection('aiot')">⚡ AIoT Fusion</button>
+    <button class="tab" onclick="showSection('roadmap')">🗺 Master Roadmap</button>
+    <button class="tab" onclick="showSection('startups')">🚀 Startup Ideas</button>
+  </div>
+
+  <!-- AI/ML Section -->
+  <div class="section active" id="ai-ml">
+    <div class="section-heading" style="color: var(--accent1)">AI / ML Career Paths</div>
+    <div class="career-grid">
+
+      <!-- ML Engineer -->
+      <div class="career-card c1" style="animation-delay:0.05s">
+        <div class="card-header">
+          <div class="card-icon">⚙️</div>
+          <div>
+            <div class="card-title">Machine Learning Engineer</div>
+            <div class="card-domain">Core AI</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Design, build, and deploy ML models at scale. Bridge the gap between data science and production engineering. Work on recommendation systems, fraud detection, and predictive analytics.</p>
+          <div class="roadmap-label">↳ Roadmap to Achieve</div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">Python & Math Foundations</div>
+                <div class="step-detail">Linear algebra, probability, calculus, NumPy, Pandas</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">Core ML Algorithms</div>
+                <div class="step-detail">Regression, classification, clustering, Scikit-learn</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">Deep Learning</div>
+                <div class="step-detail">Neural networks, TensorFlow / PyTorch, CNNs, RNNs</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-title">MLOps & Deployment</div>
+                <div class="step-detail">Docker, Kubernetes, CI/CD, model monitoring, AWS SageMaker</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">5</div>
+              <div class="step-content">
+                <div class="step-title">Portfolio & Compete</div>
+                <div class="step-detail">Kaggle competitions, GitHub projects, open-source contributions</div>
+              </div>
+            </div>
+          </div>
+          <div class="skills-section">
+            <div class="skills-label">Core Skills</div>
+            <div class="skills-tags">
+              <span class="skill-tag">Python</span>
+              <span class="skill-tag">PyTorch</span>
+              <span class="skill-tag">Scikit-learn</span>
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">SQL</span>
+              <span class="skill-tag">Cloud (AWS/GCP)</span>
+            </div>
+          </div>
+          <div class="salary-badge">💰 ₹8–40 LPA · Global: $90K–$180K</div>
+        </div>
+      </div>
+
+      <!-- AI Research Scientist -->
+      <div class="career-card c2" style="animation-delay:0.1s">
+        <div class="card-header">
+          <div class="card-icon">🔬</div>
+          <div>
+            <div class="card-title">AI Research Scientist</div>
+            <div class="card-domain">Research & Academia</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Push the boundaries of AI. Develop novel algorithms, publish papers, and work at companies like DeepMind, OpenAI, or universities. High prestige, highly competitive.</p>
+          <div class="roadmap-label">↳ Roadmap to Achieve</div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">Strong Math & CS Foundation</div>
+                <div class="step-detail">Advanced calculus, optimization, information theory, algorithms</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">B.Tech / BSc (CS/Math)</div>
+                <div class="step-detail">IIT, NIT, or top university with research exposure</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">Research Internships</div>
+                <div class="step-detail">IITB-Monash, IISc, Microsoft Research, Google Brain programs</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-title">Masters / PhD</div>
+                <div class="step-detail">M.Tech (AI/CS) or PhD with thesis on ML/AI, publish at NeurIPS/ICML</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">5</div>
+              <div class="step-content">
+                <div class="step-title">Publications & Lab Work</div>
+                <div class="step-detail">Publish papers, build citation count, collaborate globally</div>
+              </div>
+            </div>
+          </div>
+          <div class="skills-section">
+            <div class="skills-label">Core Skills</div>
+            <div class="skills-tags">
+              <span class="skill-tag">Research Papers</span>
+              <span class="skill-tag">PyTorch</span>
+              <span class="skill-tag">LaTeX</span>
+              <span class="skill-tag">JAX</span>
+              <span class="skill-tag">Statistics</span>
+            </div>
+          </div>
+          <div class="salary-badge">💰 ₹20–80 LPA · Global: $150K–$350K</div>
+        </div>
+      </div>
+
+      <!-- NLP Engineer -->
+      <div class="career-card c3" style="animation-delay:0.15s">
+        <div class="card-header">
+          <div class="card-icon">💬</div>
+          <div>
+            <div class="card-title">NLP Engineer</div>
+            <div class="card-domain">Language AI</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Build systems that understand and generate human language. Work on chatbots, LLM fine-tuning, summarization, translation, and RAG pipelines. Massively in demand post-GPT era.</p>
+          <div class="roadmap-label">↳ Roadmap to Achieve</div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">Python + ML Basics</div>
+                <div class="step-detail">Numpy, Pandas, Scikit-learn, classical NLP (NLTK/spaCy)</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">Deep Learning for NLP</div>
+                <div class="step-detail">Seq2Seq, Transformers, attention mechanisms, BERT, GPT</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">HuggingFace Ecosystem</div>
+                <div class="step-detail">Transformers library, fine-tuning LLMs, datasets, PEFT/LoRA</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-title">RAG & LLM Applications</div>
+                <div class="step-detail">LangChain, vector databases (Pinecone, Chroma), prompt engineering</div>
+              </div>
+            </div>
+          </div>
+          <div class="skills-section">
+            <div class="skills-label">Core Skills</div>
+            <div class="skills-tags">
+              <span class="skill-tag">Transformers</span>
+              <span class="skill-tag">LangChain</span>
+              <span class="skill-tag">HuggingFace</span>
+              <span class="skill-tag">spaCy</span>
+              <span class="skill-tag">Vector DBs</span>
+            </div>
+          </div>
+          <div class="salary-badge">💰 ₹10–45 LPA · Global: $110K–$200K</div>
+        </div>
+      </div>
+
+      <!-- Computer Vision Engineer -->
+      <div class="career-card c4" style="animation-delay:0.2s">
+        <div class="card-header">
+          <div class="card-icon">👁️</div>
+          <div>
+            <div class="card-title">Computer Vision Engineer</div>
+            <div class="card-domain">Visual AI</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Make machines see and understand images and video. Applications span autonomous vehicles, medical imaging, surveillance, AR/VR, quality inspection, and retail analytics.</p>
+          <div class="roadmap-label">↳ Roadmap to Achieve</div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">Image Processing Basics</div>
+                <div class="step-detail">OpenCV, image transformations, filters, morphology</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">CNNs & Architectures</div>
+                <div class="step-detail">ResNet, EfficientNet, YOLO, Detectron2, Segment Anything</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">Advanced Vision Tasks</div>
+                <div class="step-detail">Object detection, segmentation, pose estimation, OCR, 3D vision</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-title">Deployment & Optimization</div>
+                <div class="step-detail">TensorRT, ONNX, model quantization, edge deployment</div>
+              </div>
+            </div>
+          </div>
+          <div class="skills-section">
+            <div class="skills-label">Core Skills</div>
+            <div class="skills-tags">
+              <span class="skill-tag">OpenCV</span>
+              <span class="skill-tag">YOLO</span>
+              <span class="skill-tag">PyTorch</span>
+              <span class="skill-tag">TensorRT</span>
+              <span class="skill-tag">CUDA</span>
+            </div>
+          </div>
+          <div class="salary-badge">💰 ₹10–50 LPA · Global: $120K–$220K</div>
+        </div>
+      </div>
+
+      <!-- MLOps Engineer -->
+      <div class="career-card c5" style="animation-delay:0.25s">
+        <div class="card-header">
+          <div class="card-icon">🔧</div>
+          <div>
+            <div class="card-title">MLOps Engineer</div>
+            <div class="card-domain">AI Infrastructure</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">The DevOps of AI. Build and maintain the infrastructure that trains, tests, deploys, and monitors ML models. One of the fastest-growing roles in tech today.</p>
+          <div class="roadmap-label">↳ Roadmap to Achieve</div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">Software Engineering Basics</div>
+                <div class="step-detail">Python, Git, Linux, REST APIs, SQL/NoSQL</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">DevOps Foundations</div>
+                <div class="step-detail">Docker, Kubernetes, CI/CD pipelines, Terraform, cloud (AWS/GCP)</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">ML Pipelines</div>
+                <div class="step-detail">MLflow, DVC, Kubeflow, Airflow, feature stores</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-title">Monitoring & Governance</div>
+                <div class="step-detail">Model drift detection, Evidently, Prometheus, data versioning</div>
+              </div>
+            </div>
+          </div>
+          <div class="skills-section">
+            <div class="skills-label">Core Skills</div>
+            <div class="skills-tags">
+              <span class="skill-tag">Docker</span>
+              <span class="skill-tag">Kubernetes</span>
+              <span class="skill-tag">MLflow</span>
+              <span class="skill-tag">Airflow</span>
+              <span class="skill-tag">Terraform</span>
+            </div>
+          </div>
+          <div class="salary-badge">💰 ₹12–50 LPA · Global: $130K–$230K</div>
+        </div>
+      </div>
+
+      <!-- AI Ethics & Policy -->
+      <div class="career-card c6" style="animation-delay:0.3s">
+        <div class="card-header">
+          <div class="card-icon">⚖️</div>
+          <div>
+            <div class="card-title">AI Ethics & Policy Analyst</div>
+            <div class="card-domain">Responsible AI</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Ensure AI systems are fair, transparent, and safe. Work with governments, NGOs, or tech companies to shape AI regulations and audit for bias in models. A rising field as AI legislation increases globally.</p>
+          <div class="roadmap-label">↳ Roadmap to Achieve</div>
+          <div class="steps">
+            <div class="step">
+              <div class="step-num">1</div>
+              <div class="step-content">
+                <div class="step-title">Technical AI Literacy</div>
+                <div class="step-detail">ML fundamentals, bias/fairness metrics, explainability (SHAP, LIME)</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">2</div>
+              <div class="step-content">
+                <div class="step-title">Policy & Law Background</div>
+                <div class="step-detail">Data protection laws, GDPR, EU AI Act, Indian DPDP Act</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">3</div>
+              <div class="step-content">
+                <div class="step-title">Ethics Frameworks</div>
+                <div class="step-detail">IEEE Ethically Aligned Design, AI fairness toolkits, risk assessment</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-num">4</div>
+              <div class="step-content">
+                <div class="step-title">Certifications & Networking</div>
+                <div class="step-detail">AI governance certifications, join policy think tanks, publish position papers</div>
+              </div>
+            </div>
+          </div>
+          <div class="skills-section">
+            <div class="skills-label">Core Skills</div>
+            <div class="skills-tags">
+              <span class="skill-tag">AI Fairness</span>
+              <span class="skill-tag">GDPR/AI Act</span>
+              <span class="skill-tag">SHAP/LIME</span>
+              <span class="skill-tag">Policy Writing</span>
+            </div>
+          </div>
+          <div class="salary-badge">💰 ₹8–30 LPA · Global: $80K–$160K</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- IoT Section -->
+  <div class="section" id="iot">
+    <div class="section-heading" style="color: var(--accent2)">IoT Career Paths</div>
+    <div class="career-grid">
+
+      <div class="career-card c2" style="animation-delay:0.05s">
+        <div class="card-header">
+          <div class="card-icon">🔌</div>
+          <div>
+            <div class="card-title">Embedded Systems Engineer</div>
+            <div class="card-domain">Hardware Core</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Write firmware for microcontrollers that power IoT devices. Work on Arduino, STM32, ESP32 platforms. Build everything from smart sensors to industrial controllers.</p>
+          <div class="roadmap-label">↳ Roadmap to Achieve</div>
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">C/C++ Programming</div><div class="step-detail">Memory management, pointers, real-time constraints, RTOS</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Microcontroller Basics</div><div class="step-detail">Arduino, ESP32, STM32 — GPIO, UART, SPI, I2C protocols</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">RTOS & Low-Level</div><div class="step-detail">FreeRTOS, Zephyr, interrupt handling, power management</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Hardware Design</div><div class="step-detail">PCB design basics (KiCad), oscilloscope, logic analyzer usage</div></div></div>
+          </div>
+          <div class="skills-section">
+            <div class="skills-label">Core Skills</div>
+            <div class="skills-tags">
+              <span class="skill-tag">C/C++</span><span class="skill-tag">FreeRTOS</span><span class="skill-tag">ESP32</span><span class="skill-tag">UART/SPI/I2C</span><span class="skill-tag">KiCad</span>
+            </div>
+          </div>
+          <div class="salary-badge">💰 ₹5–30 LPA · Global: $70K–$140K</div>
+        </div>
+      </div>
+
+      <div class="career-card c7" style="animation-delay:0.1s">
+        <div class="card-header">
+          <div class="card-icon">☁️</div>
+          <div>
+            <div class="card-title">Cloud IoT Engineer</div>
+            <div class="card-domain">Cloud & Connectivity</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Connect IoT devices to the cloud at scale. Work with AWS IoT Core, Azure IoT Hub, Google Cloud IoT. Design data pipelines from devices to dashboards. High demand, excellent pay.</p>
+          <div class="roadmap-label">↳ Roadmap to Achieve</div>
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Cloud Fundamentals</div><div class="step-detail">AWS/Azure/GCP basics, Lambda, EC2, storage, IAM</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">IoT Protocols</div><div class="step-detail">MQTT, HTTP, CoAP, AMQP, WebSockets, TLS security</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">IoT Cloud Platforms</div><div class="step-detail">AWS IoT Core, Azure IoT Hub, Google Cloud IoT, ThingsBoard</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Data Engineering</div><div class="step-detail">Time-series DBs (InfluxDB, TimescaleDB), Kafka, Grafana dashboards</div></div></div>
+          </div>
+          <div class="skills-section">
+            <div class="skills-label">Core Skills</div>
+            <div class="skills-tags">
+              <span class="skill-tag">MQTT</span><span class="skill-tag">AWS IoT</span><span class="skill-tag">InfluxDB</span><span class="skill-tag">Kafka</span><span class="skill-tag">Grafana</span>
+            </div>
+          </div>
+          <div class="salary-badge">💰 ₹8–40 LPA · Global: $90K–$175K</div>
+        </div>
+      </div>
+
+      <div class="career-card c6" style="animation-delay:0.15s">
+        <div class="card-header">
+          <div class="card-icon">🔐</div>
+          <div>
+            <div class="card-title">IoT Security Specialist</div>
+            <div class="card-domain">Cybersecurity</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Billions of IoT devices are notoriously insecure. This niche is massively underserved and extremely well-paid. Conduct penetration testing, security audits, and design secure IoT architectures.</p>
+          <div class="roadmap-label">↳ Roadmap to Achieve</div>
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Networking & Security Basics</div><div class="step-detail">TCP/IP, TLS/SSL, firewalls, IDS/IPS, OWASP Top 10</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Embedded Security</div><div class="step-detail">Secure boot, firmware analysis, hardware hacking (JTAG, UART sniffing)</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Penetration Testing</div><div class="step-detail">Kali Linux, Burp Suite, Shodan, vulnerability assessment tools</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Certifications</div><div class="step-detail">CEH, OSCP, CompTIA Security+, IoT Security Foundation cert</div></div></div>
+          </div>
+          <div class="skills-section">
+            <div class="skills-label">Core Skills</div>
+            <div class="skills-tags">
+              <span class="skill-tag">Penetration Testing</span><span class="skill-tag">Kali Linux</span><span class="skill-tag">TLS/PKI</span><span class="skill-tag">Secure Boot</span>
+            </div>
+          </div>
+          <div class="salary-badge">💰 ₹10–50 LPA · Global: $120K–$250K</div>
+        </div>
+      </div>
+
+      <div class="career-card c4" style="animation-delay:0.2s">
+        <div class="card-header">
+          <div class="card-icon">🏗️</div>
+          <div>
+            <div class="card-title">IoT Solutions Architect</div>
+            <div class="card-domain">Systems Design</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Design end-to-end IoT ecosystems for enterprises. Work at the intersection of hardware, software, networking, and business strategy. Senior-level role with significant influence and pay.</p>
+          <div class="roadmap-label">↳ Roadmap to Achieve</div>
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Deep IoT Technical Foundation</div><div class="step-detail">3–5 years hands-on experience across hardware, software, cloud</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Enterprise IoT Platforms</div><div class="step-detail">Siemens MindSphere, PTC ThingWorx, GE Predix, SAP IoT</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Business & Communication</div><div class="step-detail">Technical writing, stakeholder management, ROI analysis, pricing models</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Cloud Architect Certifications</div><div class="step-detail">AWS Solutions Architect Professional, Azure Solutions Architect Expert</div></div></div>
+          </div>
+          <div class="skills-section">
+            <div class="skills-label">Core Skills</div>
+            <div class="skills-tags">
+              <span class="skill-tag">System Design</span><span class="skill-tag">AWS/Azure</span><span class="skill-tag">Enterprise IoT</span><span class="skill-tag">Technical Leadership</span>
+            </div>
+          </div>
+          <div class="salary-badge">💰 ₹20–80 LPA · Global: $150K–$280K</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AIoT Fusion Section -->
+  <div class="section" id="aiot">
+    <div class="section-heading" style="color: var(--accent3)">AIoT Fusion Careers — The Sweet Spot</div>
+    <div class="career-grid">
+
+      <div class="career-card c3" style="animation-delay:0.05s">
+        <div class="card-header">
+          <div class="card-icon">🧠</div>
+          <div>
+            <div class="card-title">Edge AI Engineer</div>
+            <div class="card-domain">AIoT Core</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Deploy AI models directly on IoT hardware — no cloud needed. Enable real-time inference on devices like Raspberry Pi, NVIDIA Jetson, or custom ASICs. Critical for autonomous systems, healthcare wearables, and smart cities.</p>
+          <div class="roadmap-label">↳ Roadmap to Achieve</div>
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">ML + Embedded Systems</div><div class="step-detail">Learn both ML fundamentals and embedded C/C++ programming</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Model Optimization</div><div class="step-detail">Quantization, pruning, knowledge distillation, ONNX export</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">Edge Frameworks</div><div class="step-detail">TensorFlow Lite, TinyML, OpenVINO, ONNX Runtime, CoreML</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Edge Hardware</div><div class="step-detail">NVIDIA Jetson, Raspberry Pi, STM32, ESP32-S3, Coral TPU, ASICs</div></div></div>
+          </div>
+          <div class="skills-section">
+            <div class="skills-label">Core Skills</div>
+            <div class="skills-tags">
+              <span class="skill-tag">TFLite</span><span class="skill-tag">TinyML</span><span class="skill-tag">ONNX</span><span class="skill-tag">Jetson</span><span class="skill-tag">Quantization</span><span class="skill-tag">C++</span>
+            </div>
+          </div>
+          <div class="salary-badge">💰 ₹12–55 LPA · Global: $130K–$240K</div>
+        </div>
+      </div>
+
+      <div class="career-card c1" style="animation-delay:0.1s">
+        <div class="card-header">
+          <div class="card-icon">🏭</div>
+          <div>
+            <div class="card-title">Predictive Maintenance Engineer</div>
+            <div class="card-domain">Industrial AI</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Combine IoT sensor data with ML to predict machine failures before they happen. Save industries millions in downtime. Work with manufacturing, energy, aviation, and railways.</p>
+          <div class="roadmap-label">↳ Roadmap to Achieve</div>
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">Industrial IoT Basics</div><div class="step-detail">OPC-UA, Modbus, SCADA systems, industrial sensors (vibration, temp, pressure)</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Time-Series Analysis</div><div class="step-detail">Signal processing, FFT, anomaly detection, ARIMA, LSTMs for time series</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">ML for PdM</div><div class="step-detail">Remaining useful life prediction, fault classification, isolation forests</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">Domain Knowledge</div><div class="step-detail">Learn target industry (e.g. manufacturing, aviation) — visit factory floors</div></div></div>
+          </div>
+          <div class="skills-section">
+            <div class="skills-label">Core Skills</div>
+            <div class="skills-tags">
+              <span class="skill-tag">Time-Series ML</span><span class="skill-tag">Signal Processing</span><span class="skill-tag">SCADA</span><span class="skill-tag">InfluxDB</span><span class="skill-tag">Anomaly Detection</span>
+            </div>
+          </div>
+          <div class="salary-badge">💰 ₹10–40 LPA · Global: $100K–$180K</div>
+        </div>
+      </div>
+
+      <div class="career-card c5" style="animation-delay:0.15s">
+        <div class="card-header">
+          <div class="card-icon">🌆</div>
+          <div>
+            <div class="card-title">Smart City / Smart Infrastructure Engineer</div>
+            <div class="card-domain">Urban Technology</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Design intelligent urban systems — smart traffic, energy grids, waste management, flood sensing, and surveillance. Work with municipalities and infrastructure companies on mission-critical projects.</p>
+          <div class="roadmap-label">↳ Roadmap to Achieve</div>
+          <div class="steps">
+            <div class="step"><div class="step-num">1</div><div class="step-content"><div class="step-title">LPWAN & Wireless Protocols</div><div class="step-detail">LoRaWAN, NB-IoT, Zigbee, 5G NR, mesh networking</div></div></div>
+            <div class="step"><div class="step-num">2</div><div class="step-content"><div class="step-title">Large-Scale IoT Architecture</div><div class="step-detail">Device management, OTA updates, multi-tenancy, edge gateways</div></div></div>
+            <div class="step"><div class="step-num">3</div><div class="step-content"><div class="step-title">AI for Urban Analytics</div><div class="step-detail">Crowd analysis, traffic flow optimization, energy demand forecasting</div></div></div>
+            <div class="step"><div class="step-num">4</div><div class="step-content"><div class="step-title">GIS & Spatial Data</div><div class="step-detail">QGIS, PostGIS, OpenStreetMap, geospatial ML, digital twin platforms</div></div></div>
+          </div>
+          <div class="skills-section">
+            <div class="skills-label">Core Skills</div>
+            <div class="skills-tags">
+              <span class="skill-tag">LoRaWAN</span><span class="skill-tag">NB-IoT</span><span class="skill-tag">GIS</span><span class="skill-tag">Digital Twins</span><span class="skill-tag">Computer Vision</span>
+            </div>
+          </div>
+          <div class="salary-badge">💰 ₹8–35 LPA · Global: $90K–$160K</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Roadmap Section -->
+  <div class="section" id="roadmap">
+    <div class="section-heading" style="color: var(--accent4)">Universal Master Roadmap</div>
+    <div style="max-width: 800px; margin: 0 auto;">
+      <div class="timeline">
+
+        <div class="timeline-item" style="animation-delay:0.05s">
+          <div class="timeline-dot" style="border-color: var(--accent1); color: var(--accent1)">1</div>
+          <div class="timeline-card">
+            <div class="timeline-phase" style="color: var(--accent1)">Phase 01 · Foundation (0–6 months)</div>
+            <div class="timeline-title">Build Your Core</div>
+            <div class="timeline-desc">Master the fundamentals before specializing. Everyone in AI/ML/IoT needs a strong base in programming, math, and basic electronics.</div>
+            <div class="timeline-resources">
+              <span class="resource-tag">Python (Automate the Boring Stuff)</span>
+              <span class="resource-tag">CS50 (Harvard - Free)</span>
+              <span class="resource-tag">Khan Academy Math</span>
+              <span class="resource-tag">Arduino Starter Kit</span>
+              <span class="resource-tag">3Blue1Brown: Linear Algebra</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay:0.1s">
+          <div class="timeline-dot" style="border-color: var(--accent3); color: var(--accent3)">2</div>
+          <div class="timeline-card">
+            <div class="timeline-phase" style="color: var(--accent3)">Phase 02 · Specialization (6–18 months)</div>
+            <div class="timeline-title">Pick Your Track & Go Deep</div>
+            <div class="timeline-desc">Choose: AI/ML Track OR IoT Track OR AIoT (both). Build real projects from day one — not just tutorials. Document everything on GitHub.</div>
+            <div class="timeline-resources">
+              <span class="resource-tag">Fast.ai (Free Deep Learning)</span>
+              <span class="resource-tag">Coursera ML Specialization (Andrew Ng)</span>
+              <span class="resource-tag">ESP32 Projects on GitHub</span>
+              <span class="resource-tag">HuggingFace NLP Course (Free)</span>
+              <span class="resource-tag">Raspberry Pi Projects</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay:0.15s">
+          <div class="timeline-dot" style="border-color: var(--accent2); color: var(--accent2)">3</div>
+          <div class="timeline-card">
+            <div class="timeline-phase" style="color: var(--accent2)">Phase 03 · Projects & Portfolio (12–24 months)</div>
+            <div class="timeline-title">Build Things That Matter</div>
+            <div class="timeline-desc">Ship 3–5 significant projects that solve real problems. Contribute to open-source. Enter Kaggle competitions. Write technical articles on LinkedIn/Medium.</div>
+            <div class="timeline-resources">
+              <span class="resource-tag">Kaggle Competitions</span>
+              <span class="resource-tag">GitHub Portfolio (5 projects min)</span>
+              <span class="resource-tag">Hackathons (Smart India, HackAI)</span>
+              <span class="resource-tag">Open Source Contributions</span>
+              <span class="resource-tag">Medium / LinkedIn Articles</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay:0.2s">
+          <div class="timeline-dot" style="border-color: var(--accent4); color: var(--accent4)">4</div>
+          <div class="timeline-card">
+            <div class="timeline-phase" style="color: var(--accent4)">Phase 04 · Cloud & Production (18–30 months)</div>
+            <div class="timeline-title">Learn to Scale & Deploy</div>
+            <div class="timeline-desc">Real ML is deployed ML. Learn cloud platforms, containerization, and how to build systems that work at scale with real data.</div>
+            <div class="timeline-resources">
+              <span class="resource-tag">AWS Free Tier (12 months)</span>
+              <span class="resource-tag">Docker & Kubernetes (Official Docs)</span>
+              <span class="resource-tag">MLflow & DVC</span>
+              <span class="resource-tag">Azure IoT Hub Quickstarts</span>
+              <span class="resource-tag">Full Stack Deep Learning (Free)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay:0.25s">
+          <div class="timeline-dot" style="border-color: var(--accent5); color: var(--accent5)">5</div>
+          <div class="timeline-card">
+            <div class="timeline-phase" style="color: var(--accent5)">Phase 05 · Job Hunt / Startup (24–36 months)</div>
+            <div class="timeline-title">Launch Your Career</div>
+            <div class="timeline-desc">With a strong portfolio, target companies aligned with your domain. For startups, validate your idea with 10 customer interviews before building.</div>
+            <div class="timeline-resources">
+              <span class="resource-tag">LinkedIn Optimized Profile</span>
+              <span class="resource-tag">LeetCode (100 problems)</span>
+              <span class="resource-tag">System Design Interview (Book)</span>
+              <span class="resource-tag">AngelList / Wellfound (Startups)</span>
+              <span class="resource-tag">YC Startup School (Free)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item" style="animation-delay:0.3s">
+          <div class="timeline-dot" style="border-color: var(--accent2); color: var(--accent2)">★</div>
+          <div class="timeline-card">
+            <div class="timeline-phase" style="color: var(--accent2)">Ongoing · Certifications Worth Getting</div>
+            <div class="timeline-title">Credentials That Matter</div>
+            <div class="timeline-desc">Certifications won't replace experience, but these specific ones are valued by employers and clients in AI/ML and IoT.</div>
+            <div class="timeline-resources">
+              <span class="resource-tag">AWS ML Specialty</span>
+              <span class="resource-tag">Google Professional ML Engineer</span>
+              <span class="resource-tag">TensorFlow Developer Cert</span>
+              <span class="resource-tag">Azure IoT Developer Specialty</span>
+              <span class="resource-tag">CertNexus IoTBIZ</span>
+              <span class="resource-tag">Coursera Deep Learning Specialization</span>
+              <span class="resource-tag">OSCP (For IoT Security)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Startups Section -->
+  <div class="section" id="startups">
+    <div class="section-heading" style="color: var(--accent2)">Startup Opportunities</div>
+    <div class="startup-grid">
+
+      <div class="startup-card c1" style="animation-delay:0.05s">
+        <div class="startup-category">AgriTech · AIoT</div>
+        <div class="startup-name">CropSense AI</div>
+        <div class="startup-desc">Deploy low-cost soil, humidity, and weather IoT sensors across farms. Layer AI to predict irrigation needs, detect diseases, and forecast yield. Sell to farmers or agri-cooperatives as a subscription service.</div>
+        <div class="startup-metrics">
+          <div class="metric"><div class="metric-label">Market</div><div class="metric-value">$25B+ AgriTech</div></div>
+          <div class="metric"><div class="metric-label">Revenue Model</div><div class="metric-value">Hardware + SaaS</div></div>
+          <div class="metric"><div class="metric-label">Complexity</div><div class="metric-value">Medium</div></div>
+          <div class="metric"><div class="metric-label">India Fit</div><div class="metric-value">⭐⭐⭐⭐⭐</div></div>
+        </div>
+      </div>
+
+      <div class="startup-card c3" style="animation-delay:0.1s">
+        <div class="startup-category">Industrial · Predictive AI</div>
+        <div class="startup-name">FactoryMind</div>
+        <div class="startup-desc">Plug IoT vibration + temperature sensors onto factory machines. Run ML models to predict failures 2–4 weeks in advance. Offer as a simple white-label SaaS to SME manufacturers. Zero downtime = immediate ROI.</div>
+        <div class="startup-metrics">
+          <div class="metric"><div class="metric-label">Market</div><div class="metric-value">$23B PdM Market</div></div>
+          <div class="metric"><div class="metric-label">Revenue Model</div><div class="metric-value">B2B SaaS</div></div>
+          <div class="metric"><div class="metric-label">Complexity</div><div class="metric-value">High</div></div>
+          <div class="metric"><div class="metric-label">India Fit</div><div class="metric-value">⭐⭐⭐⭐⭐</div></div>
+        </div>
+      </div>
+
+      <div class="startup-card c2" style="animation-delay:0.15s">
+        <div class="startup-category">Healthcare · Edge AI</div>
+        <div class="startup-name">VitalEdge</div>
+        <div class="startup-desc">Affordable wearable IoT device + mobile app that monitors vitals (SpO2, ECG, temperature) with on-device AI anomaly detection. Target rural clinics and elderly care in Tier-2/3 cities with no specialist access.</div>
+        <div class="startup-metrics">
+          <div class="metric"><div class="metric-label">Market</div><div class="metric-value">$12B Remote Health</div></div>
+          <div class="metric"><div class="metric-label">Revenue Model</div><div class="metric-value">Device + Platform</div></div>
+          <div class="metric"><div class="metric-label">Complexity</div><div class="metric-value">Very High</div></div>
+          <div class="metric"><div class="metric-label">India Fit</div><div class="metric-value">⭐⭐⭐⭐⭐</div></div>
+        </div>
+      </div>
+
+      <div class="startup-card c4" style="animation-delay:0.2s">
+        <div class="startup-category">Urban · Smart Cities</div>
+        <div class="startup-name">TrashIQ</div>
+        <div class="startup-desc">IoT fill-level sensors in public garbage bins + AI-optimized collection routing for municipal corporations. Reduce collection costs by 30–40%. Simple hardware, proven AI, clear government customer with budget.</div>
+        <div class="startup-metrics">
+          <div class="metric"><div class="metric-label">Market</div><div class="metric-value">$5B Smart Waste</div></div>
+          <div class="metric"><div class="metric-label">Revenue Model</div><div class="metric-value">Govt Contracts</div></div>
+          <div class="metric"><div class="metric-label">Complexity</div><div class="metric-value">Low-Medium</div></div>
+          <div class="metric"><div class="metric-label">India Fit</div><div class="metric-value">⭐⭐⭐⭐</div></div>
+        </div>
+      </div>
+
+      <div class="startup-card c5" style="animation-delay:0.25s">
+        <div class="startup-category">Energy · Sustainability</div>
+        <div class="startup-name">GridSense</div>
+        <div class="startup-desc">Smart IoT energy monitoring for commercial buildings + AI that learns consumption patterns and auto-optimizes. Integrate with solar and battery systems. Sell to office parks and hospitals. Regulatory tailwinds are strong.</div>
+        <div class="startup-metrics">
+          <div class="metric"><div class="metric-label">Market</div><div class="metric-value">$30B Energy Mgmt</div></div>
+          <div class="metric"><div class="metric-label">Revenue Model</div><div class="metric-value">SaaS + Energy Savings Share</div></div>
+          <div class="metric"><div class="metric-label">Complexity</div><div class="metric-value">Medium</div></div>
+          <div class="metric"><div class="metric-label">India Fit</div><div class="metric-value">⭐⭐⭐⭐</div></div>
+        </div>
+      </div>
+
+      <div class="startup-card c7" style="animation-delay:0.3s">
+        <div class="startup-category">Logistics · Supply Chain</div>
+        <div class="startup-name">ColdChain.ai</div>
+        <div class="startup-desc">IoT temperature + humidity trackers for cold-chain logistics (pharma, food, dairy). AI flags anomalies in real-time and provides compliance reports automatically. India's cold chain is broken — this solves it.</div>
+        <div class="startup-metrics">
+          <div class="metric"><div class="metric-label">Market</div><div class="metric-value">$340B Cold Chain</div></div>
+          <div class="metric"><div class="metric-label">Revenue Model</div><div class="metric-value">Device Lease + SaaS</div></div>
+          <div class="metric"><div class="metric-label">Complexity</div><div class="metric-value">Medium</div></div>
+          <div class="metric"><div class="metric-label">India Fit</div><div class="metric-value">⭐⭐⭐⭐⭐</div></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+// Animate cards on section reveal
+document.querySelectorAll('.career-card, .startup-card, .timeline-item').forEach((card, i) => {
+  card.style.animationDelay = (0.05 + i * 0.07) + 's';
+});
+</script>
+</body>
+</html>
